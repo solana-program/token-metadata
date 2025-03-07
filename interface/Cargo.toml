@@ -2,10 +2,12 @@
 name = "spl-token-metadata-interface"
 version = "0.6.0"
 description = "Solana Program Library Token Metadata Interface"
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
-repository = "https://github.com/solana-labs/solana-program-library"
-license = "Apache-2.0"
-edition = "2021"
+documentation = "https://docs.rs/spl-token-metadata-interface"
+authors = { workspace = true }
+repository = { workspace = true }
+homepage = { workspace = true }
+license = { workspace = true }
+edition = { workspace = true }
 
 [features]
 serde-traits = ["dep:serde", "spl-pod/serde-traits"]
@@ -15,22 +17,20 @@ borsh = "1.5.3"
 num-derive = "0.4"
 num-traits = "0.2"
 serde = { version = "1.0.216", optional = true }
-solana-borsh = "2.1.0"
-solana-decode-error = "2.1.0"
-solana-instruction = "2.1.0"
-solana-msg = "2.1.0"
-solana-program-error = "2.1.0"
-spl-discriminator = { version = "0.4.0", path = "../../libraries/discriminator" }
-solana-pubkey = "2.1.0"
-spl-type-length-value = { version = "0.7.0", path = "../../libraries/type-length-value" }
-spl-pod = { version = "0.5.0", path = "../../libraries/pod", features = [
-  "borsh",
-] }
+solana-borsh = "2.2.1"
+solana-decode-error = "2.2.1"
+solana-instruction = "2.2.1"
+solana-msg = "2.2.1"
+solana-program-error = "2.2.1"
+solana-pubkey = "2.2.1"
+spl-discriminator = "0.4.0"
+spl-type-length-value = "0.7.0"
+spl-pod = { version = "0.5.0", features = ["borsh"] }
 thiserror = "2.0"
 
 [dev-dependencies]
 serde_json = "1.0.133"
-solana-sha256-hasher = "2.1.0"
+solana-sha256-hasher = "2.2.1"
 
 [lib]
 crate-type = ["cdylib", "lib"]
