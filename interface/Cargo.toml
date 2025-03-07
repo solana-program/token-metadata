@@ -21,7 +21,7 @@ solana-borsh = "2.2.1"
 solana-decode-error = "2.2.1"
 solana-instruction = "2.2.1"
 solana-msg = "2.2.1"
-solana-program-error = "2.2.1"
+solana-program-error = { version = "2.2.1", features = ["borsh"] }
 solana-pubkey = "2.2.1"
 spl-discriminator = "0.4.0"
 spl-type-length-value = "0.7.0"
