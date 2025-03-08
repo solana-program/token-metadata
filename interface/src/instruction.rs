@@ -100,7 +100,7 @@ pub enum TokenMetadataInstruction {
     /// totally new field denoted by a "key" string.
     ///
     /// By the end of the instruction, the metadata account must be properly
-    /// resized based on the new size of the TLV entry.
+    /// re-sized based on the new size of the TLV entry.
     ///   * If the new size is larger, the program must first reallocate to
     ///     avoid overwriting other TLV entries.
     ///   * If the new size is smaller, the program must reallocate at the end
@@ -122,7 +122,7 @@ pub enum TokenMetadataInstruction {
     /// URI fields.
     ///
     /// By the end of the instruction, the metadata account must be properly
-    /// resized at the end based on the new size of the TLV entry.
+    /// re-sized at the end based on the new size of the TLV entry.
     ///
     /// Accounts expected by this instruction:
     ///
@@ -160,7 +160,7 @@ pub enum TokenMetadataInstruction {
 }
 impl TokenMetadataInstruction {
     /// Unpacks a byte buffer into a
-    /// [TokenMetadataInstruction](enum.TokenMetadataInstruction.html).
+    /// [`TokenMetadataInstruction`](enum.TokenMetadataInstruction.html).
     pub fn unpack(input: &[u8]) -> Result<Self, ProgramError> {
         if input.len() < ArrayDiscriminator::LENGTH {
             return Err(ProgramError::InvalidInstructionData);
@@ -191,8 +191,8 @@ impl TokenMetadataInstruction {
         })
     }
 
-    /// Packs a [TokenInstruction](enum.TokenInstruction.html) into a byte
-    /// buffer.
+    /// Packs a [`TokenMetadataInstruction`](enum.TokenMetadataInstruction.html)
+    /// into a byte buffer.
     pub fn pack(&self) -> Vec<u8> {
         let mut buf = vec![];
         match self {

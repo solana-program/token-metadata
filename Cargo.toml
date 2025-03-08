@@ -1,0 +1,37 @@
+[workspace]
+resolver = "2"
+members = [
+  "interface",
+  "program",
+]
+
+[workspace.package]
+authors = ["Anza Maintainers <maintainers@anza.xyz>"]
+repository = "https://github.com/solana-program/token-metadata"
+homepage = "https://solana-program.com"
+license = "Apache-2.0"
+edition = "2021"
+
+[workspace.lints.rust.unexpected_cfgs]
+level = "warn"
+check-cfg = [
+    'cfg(target_os, values("solana"))',
+    'cfg(feature, values("frozen-abi", "no-entrypoint", "custom-heap", "custom-panic"))',
+]
+
+[workspace.metadata.cli]
+solana = "2.2.0"
+
+# Specify Rust toolchains for rustfmt, clippy, and build.
+# Any unprovided toolchains default to stable.
+[workspace.metadata.toolchains]
+format = "nightly-2024-11-22"
+lint = "nightly-2024-11-22"
+
+[workspace.metadata.spellcheck]
+config = "scripts/spellcheck.toml"
+
+[workspace.metadata.release]
+pre-release-commit-message = "Publish {{crate_name}} v{{version}}"
+tag-message = "Publish {{crate_name}} v{{version}}"
+consolidate-commits = false

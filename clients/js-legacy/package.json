@@ -28,6 +28,7 @@
         "import": "./lib/esm/index.js"
     },
     "scripts": {
+        "prepublishOnly": "pnpm build",
         "build": "tsc --build --verbose tsconfig.all.json",
         "clean": "shx rm -rf lib **/*.tsbuildinfo || true",
         "deploy": "npm run deploy:docs",
@@ -35,6 +36,8 @@
         "docs": "shx rm -rf docs && typedoc && shx cp .nojekyll docs/",
         "lint": "eslint --max-warnings 0 .",
         "lint:fix": "eslint --fix .",
+        "format": "prettier --check src test",
+        "format:fix": "prettier --write src test",
         "nuke": "shx rm -rf node_modules package-lock.json || true",
         "postbuild": "shx echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
         "reinstall": "npm run nuke && npm install",
@@ -49,6 +52,7 @@
         "@solana/codecs": "2.0.0"
     },
     "devDependencies": {
+        "@solana/prettier-config-solana": "0.0.5",
         "@solana/spl-type-length-value": "0.2.0",
         "@solana/web3.js": "^1.95.5",
         "@types/chai": "^5.0.1",
@@ -58,13 +62,17 @@
         "@typescript-eslint/parser": "^8.4.0",
         "chai": "^5.1.2",
         "eslint": "^8.57.0",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-require-extensions": "^0.1.1",
         "gh-pages": "^6.2.0",
         "mocha": "^11.0.1",
+        "prettier": "^3.4.2",
         "shx": "^0.3.4",
         "ts-node": "^10.9.2",
         "tslib": "^2.8.1",
         "typedoc": "^0.27.4",
         "typescript": "^5.7.2"
-    }
+    },
+    "prettier": "@solana/prettier-config-solana"
 }
