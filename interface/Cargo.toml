@@ -24,7 +24,7 @@ solana-msg = "2.2.1"
 solana-program-error = { version = "2.2.1", features = ["borsh"] }
 solana-pubkey = "2.2.1"
 spl-discriminator = "0.4.0"
-spl-type-length-value = "0.7.0"
+spl-type-length-value = "0.8.0"
 spl-pod = { version = "0.5.0", features = ["borsh"] }
 thiserror = "2.0"
 
