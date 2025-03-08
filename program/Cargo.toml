@@ -2,7 +2,7 @@
 name = "spl-token-metadata-example"
 version = "0.3.0"
 description = "Solana Program Library Token Metadata Example Program"
-documentation = "https://docs.rs/spl-token-group-interface"
+documentation = "https://docs.rs/spl-token-metadata-example"
 authors = { workspace = true }
 repository = { workspace = true }
 homepage = { workspace = true }
