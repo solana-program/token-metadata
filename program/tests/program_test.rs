@@ -34,7 +34,7 @@ pub async fn setup(
     let mut program_test = ProgramTest::new(
         "spl_token_metadata_example",
         *program_id,
-        processor!(spl_token_metadata_example::processor::process),
+        None,
     );
 
     program_test.prefer_bpf(false); // simplicity in the build
