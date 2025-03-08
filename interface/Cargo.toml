@@ -33,7 +33,7 @@ serde_json = "1.0.133"
 solana-sha256-hasher = "2.2.1"
 
 [lib]
-crate-type = ["cdylib", "lib"]
+crate-type = ["lib"]
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

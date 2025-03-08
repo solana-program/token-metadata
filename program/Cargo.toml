@@ -27,7 +27,7 @@ spl-token-client = "0.13.0"
 test-case = "3.3"
 
 [lib]
-crate-type = ["cdylib", "lib"]
+crate-type = ["cdylib"]
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
