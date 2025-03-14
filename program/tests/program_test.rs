@@ -31,11 +31,7 @@ pub async fn setup(
     Arc<dyn ProgramClient<ProgramBanksClientProcessTransaction>>,
     Arc<Keypair>,
 ) {
-    let mut program_test = ProgramTest::new(
-        "spl_token_metadata_example",
-        *program_id,
-        processor!(spl_token_metadata_example::processor::process),
-    );
+    let mut program_test = ProgramTest::new("spl_token_metadata_example", *program_id, None);
 
     program_test.prefer_bpf(false); // simplicity in the build
     program_test.add_program(
