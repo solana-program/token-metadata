@@ -3797,7 +3797,7 @@ dependencies = [
  "spl-token",
  "spl-token-2022 7.0.0",
  "spl-token-group-interface",
- "spl-token-metadata-interface 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-token-metadata-interface 0.6.0",
  "thiserror 2.0.12",
  "zstd",
 ]
@@ -6570,7 +6570,7 @@ dependencies = [
  "spl-token",
  "spl-token-2022 7.0.0",
  "spl-token-group-interface",
- "spl-token-metadata-interface 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-token-metadata-interface 0.6.0",
  "thiserror 2.0.12",
 ]
 
@@ -7068,7 +7068,7 @@ dependencies = [
  "spl-token-confidential-transfer-proof-extraction",
  "spl-token-confidential-transfer-proof-generation 0.2.0",
  "spl-token-group-interface",
- "spl-token-metadata-interface 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-token-metadata-interface 0.6.0",
  "spl-transfer-hook-interface",
  "spl-type-length-value 0.7.0",
  "thiserror 1.0.69",
@@ -7096,7 +7096,7 @@ dependencies = [
  "spl-token-confidential-transfer-proof-extraction",
  "spl-token-confidential-transfer-proof-generation 0.3.0",
  "spl-token-group-interface",
- "spl-token-metadata-interface 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-token-metadata-interface 0.6.0",
  "spl-transfer-hook-interface",
  "spl-type-length-value 0.7.0",
  "thiserror 2.0.12",
@@ -7128,7 +7128,7 @@ dependencies = [
  "spl-token-confidential-transfer-proof-extraction",
  "spl-token-confidential-transfer-proof-generation 0.3.0",
  "spl-token-group-interface",
- "spl-token-metadata-interface 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-token-metadata-interface 0.6.0",
  "spl-transfer-hook-interface",
  "thiserror 2.0.12",
 ]
@@ -7210,31 +7210,9 @@ dependencies = [
  "spl-pod",
  "spl-token-2022 7.0.0",
  "spl-token-client",
- "spl-token-metadata-interface 0.6.0",
+ "spl-token-metadata-interface 0.7.0",
  "spl-type-length-value 0.8.0",
  "test-case",
-]
-
-[[package]]
-name = "spl-token-metadata-interface"
-version = "0.6.0"
-dependencies = [
- "borsh 1.5.6",
- "num-derive",
- "num-traits",
- "serde",
- "serde_json",
- "solana-borsh",
- "solana-decode-error",
- "solana-instruction",
- "solana-msg",
- "solana-program-error",
- "solana-pubkey",
- "solana-sha256-hasher",
- "spl-discriminator",
- "spl-pod",
- "spl-type-length-value 0.8.0",
- "thiserror 2.0.12",
 ]
 
 [[package]]
@@ -7256,6 +7234,28 @@ dependencies = [
  "spl-pod",
  "spl-type-length-value 0.7.0",
  "thiserror 1.0.69",
+]
+
+[[package]]
+name = "spl-token-metadata-interface"
+version = "0.7.0"
+dependencies = [
+ "borsh 1.5.6",
+ "num-derive",
+ "num-traits",
+ "serde",
+ "serde_json",
+ "solana-borsh",
+ "solana-decode-error",
+ "solana-instruction",
+ "solana-msg",
+ "solana-program-error",
+ "solana-pubkey",
+ "solana-sha256-hasher",
+ "spl-discriminator",
+ "spl-pod",
+ "spl-type-length-value 0.8.0",
+ "thiserror 2.0.12",
 ]
 
 [[package]]
