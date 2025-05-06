@@ -624,9 +624,9 @@ dependencies = [
 
 [[package]]
 name = "bytemuck"
-version = "1.22.0"
+version = "1.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6b1fc10dbac614ebc03540c9dbd60e83887fda27794998c6528f1782047d540"
+checksum = "9134a6ef01ce4b366b50689c94f82c14bc72bc5d0386829828a2e2752ef7958c"
 dependencies = [
  "bytemuck_derive",
 ]
@@ -7248,9 +7248,9 @@ dependencies = [
 
 [[package]]
 name = "spl-token-client"
-version = "0.14.0"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "94bf4fb4f625f07c07d28ec885c848c2a08900c1e0ad937516b8e55c8ed49434"
+checksum = "110082393ab2f9129e23a58c7cdd94f751096937ba190110a7f0d6e8685dcb63"
 dependencies = [
  "async-trait",
  "bincode",
@@ -7264,16 +7264,16 @@ dependencies = [
  "solana-rpc-client-api",
  "solana-sdk",
  "spl-associated-token-account-client",
- "spl-elgamal-registry 0.1.1",
+ "spl-elgamal-registry 0.2.0",
  "spl-memo",
  "spl-record",
- "spl-token 7.0.0",
- "spl-token-2022 7.0.0",
- "spl-token-confidential-transfer-proof-extraction 0.2.1",
- "spl-token-confidential-transfer-proof-generation 0.3.0",
- "spl-token-group-interface 0.5.0",
- "spl-token-metadata-interface 0.6.0",
- "spl-transfer-hook-interface 0.9.0",
+ "spl-token 8.0.0",
+ "spl-token-2022 8.0.1",
+ "spl-token-confidential-transfer-proof-extraction 0.3.0",
+ "spl-token-confidential-transfer-proof-generation 0.4.0",
+ "spl-token-group-interface 0.6.0",
+ "spl-token-metadata-interface 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-transfer-hook-interface 0.10.0",
  "thiserror 2.0.12",
 ]
 
