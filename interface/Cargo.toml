@@ -29,7 +29,7 @@ spl-pod = { version = "0.5.0", features = ["borsh"] }
 thiserror = "2.0"
 
 [dev-dependencies]
-serde_json = "1.0.141"
+serde_json = "1.0.142"
 solana-sha256-hasher = "2.3.0"
 
 [lib]
