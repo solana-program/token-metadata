@@ -4258,6 +4258,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-borsh"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc402b16657abbfa9991cd5cbfac5a11d809f7e7d28d3bb291baeb088b39060e"
+dependencies = [
+ "borsh 1.5.7",
+]
+
+[[package]]
 name = "solana-bpf-loader-program"
 version = "2.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4569,7 +4578,7 @@ checksum = "8be5c9ffd6dd67004bc93dfd2f613ccb01b95fd4e0ad037434558cfa0fe130a7"
 dependencies = [
  "agave-feature-set",
  "log",
- "solana-borsh",
+ "solana-borsh 2.2.1",
  "solana-builtins-default-costs",
  "solana-compute-budget",
  "solana-compute-budget-interface",
@@ -4650,7 +4659,7 @@ dependencies = [
  "ahash 0.8.11",
  "log",
  "solana-bincode",
- "solana-borsh",
+ "solana-borsh 2.2.1",
  "solana-builtins-default-costs",
  "solana-clock",
  "solana-compute-budget",
@@ -5405,7 +5414,7 @@ dependencies = [
  "solana-big-mod-exp",
  "solana-bincode",
  "solana-blake3-hasher",
- "solana-borsh",
+ "solana-borsh 2.2.1",
  "solana-clock",
  "solana-cpi",
  "solana-decode-error",
@@ -7693,7 +7702,7 @@ dependencies = [
  "num-traits",
  "serde",
  "serde_json",
- "solana-borsh",
+ "solana-borsh 3.0.0",
  "solana-decode-error",
  "solana-instruction",
  "solana-msg 3.0.0",
@@ -7715,7 +7724,7 @@ dependencies = [
  "borsh 1.5.7",
  "num-derive",
  "num-traits",
- "solana-borsh",
+ "solana-borsh 2.2.1",
  "solana-decode-error",
  "solana-instruction",
  "solana-msg 2.2.1",
