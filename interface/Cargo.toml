@@ -30,7 +30,7 @@ thiserror = "2.0"
 
 [dev-dependencies]
 serde_json = "1.0.142"
-solana-sha256-hasher = "2.3.0"
+solana-sha256-hasher = "3.0.0"
 
 [lib]
 crate-type = ["lib"]
