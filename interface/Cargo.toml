@@ -19,7 +19,7 @@ num-traits = "0.2"
 serde = { version = "1.0.219", optional = true }
 solana-borsh = "3.0.0"
 solana-decode-error = "2.2.1"
-solana-instruction = "2.2.1"
+solana-instruction = "3.0.0"
 solana-msg = "3.0.0"
 solana-program-error = { version = "2.2.1", features = ["borsh"] }
 solana-pubkey = "2.2.1"
