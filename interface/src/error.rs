@@ -1,10 +1,6 @@
 //! Interface error types
 
-use {
-    solana_decode_error::DecodeError,
-    solana_msg::msg,
-    solana_program_error::{PrintProgramError, ProgramError},
-};
+use solana_program_error::{ProgramError, ToStr};
 
 /// Errors that may be returned by the interface.
 #[repr(u32)]
@@ -36,40 +32,19 @@ impl From<TokenMetadataError> for ProgramError {
     }
 }
 
-impl<T> DecodeError<T> for TokenMetadataError {
-    fn type_of() -> &'static str {
-        "TokenMetadataError"
-    }
-}
-
-impl PrintProgramError for TokenMetadataError {
-    fn print<E>(&self)
-    where
-        E: 'static
-            + std::error::Error
-            + DecodeError<E>
-            + PrintProgramError
-            + num_traits::FromPrimitive,
-    {
+impl ToStr for TokenMetadataError {
+    fn to_str(&self) -> &'static str {
         match self {
-            TokenMetadataError::IncorrectAccount => {
-                msg!("Incorrect account provided")
-            }
-            TokenMetadataError::MintHasNoMintAuthority => {
-                msg!("Mint has no mint authority")
-            }
+            TokenMetadataError::IncorrectAccount => "Incorrect account provided",
+            TokenMetadataError::MintHasNoMintAuthority => "Mint has no mint authority",
             TokenMetadataError::IncorrectMintAuthority => {
-                msg!("Incorrect mint authority has signed the instruction",)
+                "Incorrect mint authority has signed the instruction"
             }
             TokenMetadataError::IncorrectUpdateAuthority => {
-                msg!("Incorrect metadata update authority has signed the instruction",)
+                "Incorrect metadata update authority has signed the instruction"
             }
-            TokenMetadataError::ImmutableMetadata => {
-                msg!("Token metadata has no update authority")
-            }
-            TokenMetadataError::KeyNotFound => {
-                msg!("Key not found in metadata account")
-            }
+            TokenMetadataError::ImmutableMetadata => "Token metadata has no update authority",
+            TokenMetadataError::KeyNotFound => "Key not found in metadata account",
         }
     }
 }
