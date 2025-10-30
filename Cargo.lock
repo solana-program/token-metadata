@@ -580,7 +580,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "115e54d64eb62cdebad391c19efc9dce4981c690c85a33a12199d99bb9546fee"
 dependencies = [
  "borsh-derive 0.10.4",
- "hashbrown 0.13.2",
+ "hashbrown 0.12.3",
 ]
 
 [[package]]
@@ -7948,7 +7948,7 @@ dependencies = [
  "spl-token-2022 9.0.0",
  "spl-token-client",
  "spl-token-metadata-interface 0.7.0",
- "spl-type-length-value 0.8.0",
+ "spl-type-length-value 0.9.0",
  "test-case",
 ]
 
