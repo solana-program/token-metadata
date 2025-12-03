@@ -1,0 +1,9 @@
+{
+  "chainId": 101,
+  "address": "9tyWW1ag8o52FJfT4KnJGnDTi9QBS8ZnkL2uUFwjgmrW",
+  "symbol": "C1",
+  "name": "Chain One",
+  "decimals": 9,
+  "logoURI": "https://raw.githubusercontent.com/microman114/chain-one-token/main/9tyWW1ag8o52FJfT4KnJGnDTi9QBS8ZnkL2uUFwjgmrW.png",
+  "tags": ["currency"]
+}
