@@ -1,6 +1,4 @@
-#![cfg(feature = "test-sbf")]
 #![allow(clippy::items_after_test_module)]
-
 mod program_test;
 use {
     program_test::{setup, setup_metadata, setup_mint},
