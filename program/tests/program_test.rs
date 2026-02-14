@@ -1,5 +1,3 @@
-#![cfg(feature = "test-sbf")]
-
 use {
     solana_program_test::{processor, tokio::sync::Mutex, ProgramTest, ProgramTestContext},
     solana_sdk::{
@@ -21,7 +19,7 @@ use {
 };
 
 fn keypair_clone(kp: &Keypair) -> Keypair {
-    Keypair::from_bytes(&kp.to_bytes()).expect("failed to copy keypair")
+    Keypair::try_from(kp.to_bytes().as_ref()).expect("failed to copy keypair")
 }
 
 pub async fn setup(

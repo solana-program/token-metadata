@@ -1,5 +1,3 @@
-#![cfg(feature = "test-sbf")]
-
 mod program_test;
 use {
     program_test::{setup, setup_metadata, setup_mint, setup_update_field},

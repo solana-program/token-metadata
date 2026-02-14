@@ -2,10 +2,7 @@
 
 use {
     crate::processor,
-    solana_program::{
-        account_info::AccountInfo, entrypoint::ProgramResult, program_error::PrintProgramError,
-        pubkey::Pubkey,
-    },
+    solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, msg, pubkey::Pubkey},
     spl_token_metadata_interface::error::TokenMetadataError,
 };
 
@@ -17,7 +14,7 @@ fn process_instruction(
 ) -> ProgramResult {
     if let Err(error) = processor::process(program_id, accounts, instruction_data) {
         // catch the error so we can print it
-        error.print::<TokenMetadataError>();
+        msg!(error.to_str::<TokenMetadataError>());
         return Err(error);
     }
     Ok(())

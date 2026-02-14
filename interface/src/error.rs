@@ -4,7 +4,15 @@ use solana_program_error::{ProgramError, ToStr};
 
 /// Errors that may be returned by the interface.
 #[repr(u32)]
-#[derive(Clone, Debug, Eq, thiserror::Error, num_derive::FromPrimitive, PartialEq)]
+#[derive(
+    Clone,
+    Debug,
+    Eq,
+    thiserror::Error,
+    num_derive::FromPrimitive,
+    num_enum::TryFromPrimitive,
+    PartialEq,
+)]
 pub enum TokenMetadataError {
     /// Incorrect account provided
     #[error("Incorrect account provided")]
