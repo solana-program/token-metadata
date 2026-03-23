@@ -11,13 +11,14 @@ use {
         program_option::COption,
         pubkey::Pubkey,
     },
-    spl_pod::optional_keys::OptionalNonZeroPubkey,
     spl_token_2022::{extension::StateWithExtensions, state::Mint},
     spl_token_metadata_interface::{
         error::TokenMetadataError,
         instruction::{
             Emit, Initialize, RemoveKey, TokenMetadataInstruction, UpdateAuthority, UpdateField,
         },
+        solana_address::Address,
+        solana_nullable::MaybeNull,
         state::TokenMetadata,
     },
     spl_type_length_value::state::{
@@ -27,12 +28,12 @@ use {
 
 fn check_update_authority(
     update_authority_info: &AccountInfo,
-    expected_update_authority: &OptionalNonZeroPubkey,
+    expected_update_authority: &MaybeNull<Address>,
 ) -> Result<(), ProgramError> {
     if !update_authority_info.is_signer {
         return Err(ProgramError::MissingRequiredSignature);
     }
-    let update_authority = Option::<Pubkey>::from(*expected_update_authority)
+    let update_authority = Option::<Address>::from(*expected_update_authority)
         .ok_or(TokenMetadataError::ImmutableMetadata)?;
     if update_authority != *update_authority_info.key {
         return Err(TokenMetadataError::IncorrectUpdateAuthority.into());
@@ -70,7 +71,8 @@ pub fn process_initialize(
     }
 
     // get the required size, assumes that there's enough space for the entry
-    let update_authority = OptionalNonZeroPubkey::try_from(Some(*update_authority_info.key))?;
+    let update_authority = MaybeNull::try_from(Some(*update_authority_info.key))
+        .map_err(|_| ProgramError::InvalidArgument)?;
     let token_metadata = TokenMetadata {
         name: data.name,
         symbol: data.symbol,
