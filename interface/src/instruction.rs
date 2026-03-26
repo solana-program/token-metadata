@@ -1,15 +1,20 @@
 //! Instruction types
 
-#[cfg(feature = "serde-traits")]
-use serde::{Deserialize, Serialize};
 use {
     crate::state::Field,
+    alloc::{string::String, vec, vec::Vec},
     borsh::{BorshDeserialize, BorshSerialize},
-    solana_instruction::{AccountMeta, Instruction},
+    solana_address::Address,
+    solana_instruction::{account_meta::AccountMeta, Instruction},
+    solana_nullable::MaybeNull,
     solana_program_error::ProgramError,
-    solana_pubkey::Pubkey,
     spl_discriminator::{discriminator::ArrayDiscriminator, SplDiscriminate},
-    spl_pod::optional_keys::OptionalNonZeroPubkey,
+};
+
+#[cfg(feature = "serde-traits")]
+use {
+    serde::{Deserialize, Serialize},
+    serde_with::DisplayFromStr,
 };
 
 /// Initialization instruction data
@@ -58,7 +63,11 @@ pub struct RemoveKey {
 #[discriminator_hash_input("spl_token_metadata_interface:update_the_authority")]
 pub struct UpdateAuthority {
     /// New authority for the token metadata, or unset if `None`
-    pub new_authority: OptionalNonZeroPubkey,
+    #[cfg_attr(
+        feature = "serde-traits",
+        serde(with = "serde_with::As::<Option<DisplayFromStr>>")
+    )]
+    pub new_authority: MaybeNull<Address>,
 }
 
 /// Instruction data for Emit
@@ -224,11 +233,11 @@ impl TokenMetadataInstruction {
 /// Creates an `Initialize` instruction
 #[allow(clippy::too_many_arguments)]
 pub fn initialize(
-    program_id: &Pubkey,
-    metadata: &Pubkey,
-    update_authority: &Pubkey,
-    mint: &Pubkey,
-    mint_authority: &Pubkey,
+    program_id: &Address,
+    metadata: &Address,
+    update_authority: &Address,
+    mint: &Address,
+    mint_authority: &Address,
     name: String,
     symbol: String,
     uri: String,
@@ -248,9 +257,9 @@ pub fn initialize(
 
 /// Creates an `UpdateField` instruction
 pub fn update_field(
-    program_id: &Pubkey,
-    metadata: &Pubkey,
-    update_authority: &Pubkey,
+    program_id: &Address,
+    metadata: &Address,
+    update_authority: &Address,
     field: Field,
     value: String,
 ) -> Instruction {
@@ -267,9 +276,9 @@ pub fn update_field(
 
 /// Creates a `RemoveKey` instruction
 pub fn remove_key(
-    program_id: &Pubkey,
-    metadata: &Pubkey,
-    update_authority: &Pubkey,
+    program_id: &Address,
+    metadata: &Address,
+    update_authority: &Address,
     key: String,
     idempotent: bool,
 ) -> Instruction {
@@ -286,10 +295,10 @@ pub fn remove_key(
 
 /// Creates an `UpdateAuthority` instruction
 pub fn update_authority(
-    program_id: &Pubkey,
-    metadata: &Pubkey,
-    current_authority: &Pubkey,
-    new_authority: OptionalNonZeroPubkey,
+    program_id: &Address,
+    metadata: &Address,
+    current_authority: &Address,
+    new_authority: MaybeNull<Address>,
 ) -> Instruction {
     let data = TokenMetadataInstruction::UpdateAuthority(UpdateAuthority { new_authority });
     Instruction {
@@ -304,8 +313,8 @@ pub fn update_authority(
 
 /// Creates an `Emit` instruction
 pub fn emit(
-    program_id: &Pubkey,
-    metadata: &Pubkey,
+    program_id: &Address,
+    metadata: &Address,
     start: Option<u64>,
     end: Option<u64>,
 ) -> Instruction {
@@ -320,8 +329,13 @@ pub fn emit(
 #[cfg(test)]
 mod test {
     #[cfg(feature = "serde-traits")]
-    use std::str::FromStr;
-    use {super::*, crate::NAMESPACE, solana_sha256_hasher::hashv};
+    use core::str::FromStr;
+    use {
+        super::*,
+        crate::NAMESPACE,
+        alloc::{format, string::ToString, vec},
+        solana_sha256_hasher::hashv,
+    };
 
     fn check_pack_unpack<T: BorshSerialize>(
         instruction: TokenMetadataInstruction,
@@ -382,7 +396,7 @@ mod test {
     #[test]
     fn update_authority_pack() {
         let data = UpdateAuthority {
-            new_authority: OptionalNonZeroPubkey::default(),
+            new_authority: MaybeNull::default(),
         };
         let check = TokenMetadataInstruction::UpdateAuthority(data.clone());
         let preimage = hashv(&[format!("{NAMESPACE}:update_the_authority").as_bytes()]);
@@ -456,9 +470,9 @@ mod test {
     #[cfg(feature = "serde-traits")]
     #[test]
     fn update_authority_serde() {
-        let update_authority_option: Option<Pubkey> =
-            Some(Pubkey::from_str("4uQeVj5tqViQh7yWWGStvkEG1Zmhx6uasJtWCJziofM").unwrap());
-        let update_authority: OptionalNonZeroPubkey = update_authority_option.try_into().unwrap();
+        let update_authority_option: Option<Address> =
+            Some(Address::from_str("4uQeVj5tqViQh7yWWGStvkEG1Zmhx6uasJtWCJziofM").unwrap());
+        let update_authority: MaybeNull<Address> = update_authority_option.try_into().unwrap();
         let data = UpdateAuthority {
             new_authority: update_authority,
         };
@@ -475,7 +489,7 @@ mod test {
     #[test]
     fn update_authority_serde_with_none() {
         let data = UpdateAuthority {
-            new_authority: OptionalNonZeroPubkey::default(),
+            new_authority: MaybeNull::default(),
         };
         let ix = TokenMetadataInstruction::UpdateAuthority(data);
         let serialized = serde_json::to_string(&ix).unwrap();

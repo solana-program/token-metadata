@@ -1,19 +1,24 @@
 //! Token-metadata interface state types
 
-#[cfg(feature = "serde-traits")]
-use serde::{Deserialize, Serialize};
 use {
+    alloc::{
+        string::{String, ToString},
+        vec::Vec,
+    },
     borsh::{BorshDeserialize, BorshSchema, BorshSerialize},
+    solana_address::Address,
     solana_borsh::v1::{get_instance_packed_len, try_from_slice_unchecked},
+    solana_nullable::MaybeNull,
     solana_program_error::ProgramError,
-    solana_pubkey::Pubkey,
     spl_discriminator::{ArrayDiscriminator, SplDiscriminate},
-    spl_pod::optional_keys::OptionalNonZeroPubkey,
     spl_type_length_value::{
         state::{TlvState, TlvStateBorrowed},
         variable_len_pack::VariableLenPack,
     },
 };
+
+#[cfg(feature = "serde-traits")]
+use serde::{Deserialize, Serialize};
 
 /// Data struct for all token-metadata, stored in a TLV entry
 ///
@@ -22,10 +27,10 @@ use {
 #[derive(Clone, Debug, Default, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct TokenMetadata {
     /// The authority that can sign to update the metadata
-    pub update_authority: OptionalNonZeroPubkey,
+    pub update_authority: MaybeNull<Address>,
     /// The associated mint, used to counter spoofing to be sure that metadata
     /// belongs to a particular mint
-    pub mint: Pubkey,
+    pub mint: Address,
     /// The longer name of the token
     pub name: String,
     /// The shortened symbol for the token
@@ -123,7 +128,12 @@ pub enum Field {
 
 #[cfg(test)]
 mod tests {
-    use {super::*, crate::NAMESPACE, solana_sha256_hasher::hashv};
+    use {
+        super::*,
+        crate::NAMESPACE,
+        alloc::{format, string::ToString},
+        solana_sha256_hasher::hashv,
+    };
 
     #[test]
     fn discriminator() {
