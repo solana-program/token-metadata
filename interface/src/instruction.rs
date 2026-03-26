@@ -12,7 +12,10 @@ use {
 };
 
 #[cfg(feature = "serde-traits")]
-use serde::{Deserialize, Serialize};
+use {
+    serde::{Deserialize, Serialize},
+    serde_with::DisplayFromStr,
+};
 
 /// Initialization instruction data
 #[cfg_attr(feature = "serde-traits", derive(Serialize, Deserialize))]
@@ -60,7 +63,10 @@ pub struct RemoveKey {
 #[discriminator_hash_input("spl_token_metadata_interface:update_the_authority")]
 pub struct UpdateAuthority {
     /// New authority for the token metadata, or unset if `None`
-    #[cfg_attr(feature = "serde-traits", serde(with = "maybe_null_address_str"))]
+    #[cfg_attr(
+        feature = "serde-traits",
+        serde(with = "serde_with::As::<Option<DisplayFromStr>>")
+    )]
     pub new_authority: MaybeNull<Address>,
 }
 
@@ -317,42 +323,6 @@ pub fn emit(
         program_id: *program_id,
         accounts: vec![AccountMeta::new_readonly(*metadata, false)],
         data: data.pack(),
-    }
-}
-
-// Preserves the old serde behavior from before the  `OptionalNonZeroPubkey` -> `MaybeNull<Address>`
-// migration. `Some(address)` serializes as a base58 string and `None` as `null`. Reference:
-// https://github.com/solana-program/libraries/blob/8c73d863e928e726a555085fdb5e09a190df5786/pod/src/optional_keys.rs#L76-L129
-#[cfg(feature = "serde-traits")]
-mod maybe_null_address_str {
-    use {
-        alloc::string::{String, ToString},
-        core::str::FromStr,
-        serde::{Deserialize, Deserializer, Serializer},
-        solana_address::Address,
-        solana_nullable::MaybeNull,
-    };
-
-    pub fn serialize<S>(value: &MaybeNull<Address>, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        match Option::<Address>::from(*value) {
-            Some(address) => serializer.serialize_str(&address.to_string()),
-            None => serializer.serialize_none(),
-        }
-    }
-
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<MaybeNull<Address>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let value = Option::<String>::deserialize(deserializer)?;
-        value
-            .map(|value| Address::from_str(&value).map_err(serde::de::Error::custom))
-            .transpose()?
-            .try_into()
-            .map_err(serde::de::Error::custom)
     }
 }
 
