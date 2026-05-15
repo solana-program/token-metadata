@@ -19,7 +19,7 @@ serde-traits = [
 ]
 
 [dependencies]
-borsh = { version = "1.5.7", default-features = false }
+borsh = { version = "1.6.1", default-features = false }
 num-derive = "0.4"
 num-traits = { version = "0.2", default-features = false }
 num_enum = { version = "0.7", default-features = false }
