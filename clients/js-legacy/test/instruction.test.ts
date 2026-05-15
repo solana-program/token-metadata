@@ -14,7 +14,7 @@ import {
     fixDecoderSize,
     getBooleanDecoder,
     getBytesDecoder,
-    getDataEnumCodec,
+    getDiscriminatedUnionCodec,
     getOptionDecoder,
     getUtf8Decoder,
     getU32Decoder,
@@ -86,7 +86,7 @@ describe('Token Metadata Instructions', () => {
             }),
             await splDiscriminate('spl_token_metadata_interface:updating_field'),
             getStructDecoder([
-                ['key', getDataEnumCodec(getFieldCodec())],
+                ['key', getDiscriminatedUnionCodec(getFieldCodec())],
                 ['value', getStringDecoder()],
             ]),
             { key: getFieldConfig(field), value },
@@ -106,7 +106,7 @@ describe('Token Metadata Instructions', () => {
             }),
             await splDiscriminate('spl_token_metadata_interface:updating_field'),
             getStructDecoder([
-                ['key', getDataEnumCodec(getFieldCodec())],
+                ['key', getDiscriminatedUnionCodec(getFieldCodec())],
                 ['value', getStringDecoder()],
             ]),
             { key: getFieldConfig(field), value },

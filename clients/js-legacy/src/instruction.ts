@@ -4,7 +4,7 @@ import {
     fixEncoderSize,
     getBooleanEncoder,
     getBytesEncoder,
-    getDataEnumCodec,
+    getDiscriminatedUnionCodec,
     getOptionEncoder,
     getUtf8Encoder,
     getStructEncoder,
@@ -106,7 +106,7 @@ export function createUpdateFieldInstruction(args: UpdateFieldInstruction): Tran
                     221, 233, 49, 45, 181, 202, 220, 200,
                 ]),
                 getStructEncoder([
-                    ['field', getDataEnumCodec(getFieldCodec())],
+                    ['field', getDiscriminatedUnionCodec(getFieldCodec())],
                     ['value', getStringEncoder()],
                 ]),
             ).encode({ field: getFieldConfig(field), value }),
