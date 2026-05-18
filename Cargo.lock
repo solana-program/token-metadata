@@ -5424,7 +5424,7 @@ dependencies = [
  "solana-nonce",
  "solana-pubkey 4.1.0",
  "solana-sdk-ids",
- "solana-system-interface 3.1.0",
+ "solana-system-interface 3.2.0",
  "thiserror 2.0.18",
 ]
 
@@ -5444,7 +5444,7 @@ dependencies = [
  "solana-pubkey 4.1.0",
  "solana-rent 4.0.0",
  "solana-sdk-ids",
- "solana-system-interface 3.1.0",
+ "solana-system-interface 3.2.0",
 ]
 
 [[package]]
@@ -7125,9 +7125,9 @@ dependencies = [
 
 [[package]]
 name = "solana-system-interface"
-version = "3.1.0"
+version = "3.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a95a6f2e23ed861d6444ad4a6d6896c418d7d101b960787e65a8e33157cee81b"
+checksum = "55b54965bf0b76fa8e2b35376583efddd4d916618cfe595bf48c7d7b55a9e628"
 dependencies = [
  "num-traits",
  "serde",
@@ -8132,7 +8132,7 @@ dependencies = [
  "solana-program 4.0.0",
  "solana-program-test",
  "solana-sdk",
- "solana-system-interface 3.1.0",
+ "solana-system-interface 3.2.0",
  "spl-token-2022",
  "spl-token-client",
  "spl-token-metadata-interface 1.0.0",
