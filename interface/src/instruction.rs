@@ -167,6 +167,30 @@ pub enum TokenMetadataInstruction {
     ///   0. `[]` Metadata account
     Emit(Emit),
 }
+/// Validates that a Borsh-encoded `String` starting at `*cursor` declares a
+/// length that fits within `rest`, advancing `*cursor` past it on success.
+///
+/// `TokenMetadataInstruction::unpack` calls this before `try_from_slice` so a
+/// forged length prefix can't trigger an oversized allocation that aborts on
+/// the SBF heap. See <https://github.com/solana-program/token-2022/issues/1152>.
+fn check_borsh_string(rest: &[u8], cursor: &mut usize) -> Result<(), ProgramError> {
+    let len_end = cursor
+        .checked_add(core::mem::size_of::<u32>())
+        .ok_or(ProgramError::InvalidInstructionData)?;
+    let len_bytes = rest
+        .get(*cursor..len_end)
+        .ok_or(ProgramError::InvalidInstructionData)?;
+    let len = u32::from_le_bytes(len_bytes.try_into().unwrap()) as usize;
+    let str_end = len_end
+        .checked_add(len)
+        .ok_or(ProgramError::InvalidInstructionData)?;
+    if str_end > rest.len() {
+        return Err(ProgramError::InvalidInstructionData);
+    }
+    *cursor = str_end;
+    Ok(())
+}
+
 impl TokenMetadataInstruction {
     /// Unpacks a byte buffer into a
     /// [`TokenMetadataInstruction`](enum.TokenMetadataInstruction.html).
@@ -177,14 +201,33 @@ impl TokenMetadataInstruction {
         let (discriminator, rest) = input.split_at(ArrayDiscriminator::LENGTH);
         Ok(match discriminator {
             Initialize::SPL_DISCRIMINATOR_SLICE => {
+                let mut cursor = 0usize;
+                check_borsh_string(rest, &mut cursor)?; // name
+                check_borsh_string(rest, &mut cursor)?; // symbol
+                check_borsh_string(rest, &mut cursor)?; // uri
                 let data = Initialize::try_from_slice(rest)?;
                 Self::Initialize(data)
             }
             UpdateField::SPL_DISCRIMINATOR_SLICE => {
+                let mut cursor = 0usize;
+                // `Field` is a Borsh enum: 1-byte variant tag, and only the
+                // `Key` variant (tag 3) carries a nested string.
+                let tag = *rest
+                    .get(cursor)
+                    .ok_or(ProgramError::InvalidInstructionData)?;
+                cursor = cursor
+                    .checked_add(1)
+                    .ok_or(ProgramError::InvalidInstructionData)?;
+                if tag == 3 {
+                    check_borsh_string(rest, &mut cursor)?; // Field::Key(String)
+                }
+                check_borsh_string(rest, &mut cursor)?; // value
                 let data = UpdateField::try_from_slice(rest)?;
                 Self::UpdateField(data)
             }
             RemoveKey::SPL_DISCRIMINATOR_SLICE => {
+                let mut cursor = 1usize; // skip the 1-byte `idempotent` bool
+                check_borsh_string(rest, &mut cursor)?; // key
                 let data = RemoveKey::try_from_slice(rest)?;
                 Self::RemoveKey(data)
             }
@@ -414,6 +457,41 @@ mod test {
         let preimage = hashv(&[format!("{NAMESPACE}:emitter").as_bytes()]);
         let discriminator = &preimage.as_ref()[..ArrayDiscriminator::LENGTH];
         check_pack_unpack(check, discriminator, data);
+    }
+
+    #[test]
+    fn fail_unpack_initialize_with_forged_name_length() {
+        let mut input = vec![];
+        input.extend_from_slice(Initialize::SPL_DISCRIMINATOR_SLICE);
+        input.extend_from_slice(&u32::MAX.to_le_bytes()); // forged name length, no bytes follow
+        assert_eq!(
+            TokenMetadataInstruction::unpack(&input).unwrap_err(),
+            ProgramError::InvalidInstructionData,
+        );
+    }
+
+    #[test]
+    fn fail_unpack_update_field_with_forged_value_length() {
+        let mut input = vec![];
+        input.extend_from_slice(UpdateField::SPL_DISCRIMINATOR_SLICE);
+        input.push(0u8); // Field::Name (tag 0, no nested string)
+        input.extend_from_slice(&u32::MAX.to_le_bytes()); // forged value length
+        assert_eq!(
+            TokenMetadataInstruction::unpack(&input).unwrap_err(),
+            ProgramError::InvalidInstructionData,
+        );
+    }
+
+    #[test]
+    fn fail_unpack_remove_key_with_forged_key_length() {
+        let mut input = vec![];
+        input.extend_from_slice(RemoveKey::SPL_DISCRIMINATOR_SLICE);
+        input.push(0u8); // idempotent = false
+        input.extend_from_slice(&u32::MAX.to_le_bytes()); // forged key length
+        assert_eq!(
+            TokenMetadataInstruction::unpack(&input).unwrap_err(),
+            ProgramError::InvalidInstructionData,
+        );
     }
 
     #[cfg(feature = "serde-traits")]
