@@ -8135,7 +8135,7 @@ dependencies = [
  "solana-system-interface 3.2.0",
  "spl-token-2022",
  "spl-token-client",
- "spl-token-metadata-interface 1.0.0",
+ "spl-token-metadata-interface 1.0.1",
  "spl-type-length-value",
  "test-case",
 ]
@@ -8161,7 +8161,7 @@ dependencies = [
 
 [[package]]
 name = "spl-token-metadata-interface"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "borsh",
  "num-derive",
@@ -8177,7 +8177,7 @@ dependencies = [
  "solana-program-error",
  "solana-sha256-hasher",
  "spl-discriminator",
- "spl-token-metadata-interface 1.0.0",
+ "spl-token-metadata-interface 1.0.1",
  "spl-type-length-value",
  "thiserror 2.0.18",
 ]
