@@ -14,15 +14,15 @@ no-entrypoint = []
 
 [dependencies]
 solana-program = "4.0.0"
-spl-token-2022 = { version = "10.0.0", features = ["no-entrypoint"] }
+spl-token-2022 = { version = "11.0.0", features = ["no-entrypoint"] }
 spl-token-metadata-interface = { version = "1.0.0", path = "../interface" }
 spl-type-length-value = "0.9.1"
 
 [dev-dependencies]
-solana-program-test = { version = "3.1.8", features = ["agave-unstable-api"] }
-solana-sdk = "3.0.0"
+solana-program-test = { version = "4.2.2", features = ["agave-unstable-api"] }
+solana-sdk = "4.0.0"
 solana-system-interface = "3"
-spl-token-client = { version = "0.18.0", features = ["dev-context-only-utils"] }
+spl-token-client = { version = "0.20.0", features = ["dev-context-only-utils"] }
 test-case = "3.3"
 
 [lib]
