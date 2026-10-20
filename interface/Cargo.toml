@@ -27,7 +27,7 @@ serde = { version = "1.0.219", optional = true, default-features = false }
 serde_with = { version = "3.21.0", optional = true, default-features = false, features = ["macros"] }
 solana-address = { version = "2.6.1", features = ["borsh", "nullable"] }
 solana-borsh = "3.0.2"
-solana-instruction = { version = "3.4.0", default-features = false }
+solana-instruction = { version = "4.0.0", default-features = false }
 solana-nullable = { version = "1.1.1", features = ["borsh"] }
 solana-program-error = { version = "3.0.1", features = ["borsh"] }
 spl-discriminator = "0.5.2"
