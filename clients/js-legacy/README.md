@@ -16,7 +16,7 @@ A TypeScript interface describing the instructions required for a program to imp
 Please ask questions in the Solana Stack Exchange: https://solana.stackexchange.com/
 
 If you've found a bug or you'd like to request a feature, please
-[open an issue](https://github.com/solana-labs/solana-program-library/issues/new).
+[open an issue](https://github.com/solana-program/token-metadata/issues/new).
 
 ## Install
 
@@ -33,29 +33,29 @@ yarn add @solana/spl-token-metadata @solana/web3.js@1
 0. Prerequisites
 
 * Node 16+
-* NPM 8+
+* PNPM 9+
 
 1. Clone the project:
 ```shell
-git clone https://github.com/solana-labs/solana-program-library.git
+git clone https://github.com/solana-program/token-metadata.git
 ```
 
 2. Navigate to the library:
 ```shell
-cd solana-program-library/token-metadata/js
+cd token-metadata/clients/js-legacy
 ```
 
 3. Install the dependencies:
 ```shell
-npm install
+pnpm install
 ```
 
 4. Build the library:
 ```shell
-npm run build
+pnpm build
 ```
 
-5. Build the on-chain programs:
+5. Run the tests:
 ```shell
-npm run test:build-programs
+pnpm test
 ```
