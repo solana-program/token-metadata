@@ -948,8 +948,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "90dbd31c98227229239363921e60fcf5e558e43ec69094d46fc4996f08d1d5bc"
 dependencies = [
  "bitcoin_hashes",
- "rand 0.8.8",
- "rand_core 0.6.4",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
  "serde",
  "unicode-normalization",
 ]
@@ -8177,24 +8177,8 @@ dependencies = [
  "solana-system-interface 3.3.0",
  "solana-sysvar 3.1.1",
  "solana-zk-elgamal-proof-interface 1.0.0",
- "spl-elgamal-registry-interface 0.3.0",
+ "spl-elgamal-registry-interface",
  "spl-token-confidential-transfer-proof-extraction 0.7.0",
-]
-
-[[package]]
-name = "spl-elgamal-registry-interface"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee44791bc24c74bdb07cbaa419a1a34cf4d67132bba51e198bd92d332cc26b92"
-dependencies = [
- "bytemuck",
- "solana-address 2.9.0",
- "solana-instruction 3.5.1",
- "solana-program-error",
- "solana-sdk-ids",
- "solana-zk-elgamal-proof-interface 0.1.3",
- "solana-zk-sdk-pod",
- "spl-token-confidential-transfer-proof-extraction 0.6.1",
 ]
 
 [[package]]
@@ -8337,44 +8321,6 @@ dependencies = [
 
 [[package]]
 name = "spl-token-2022"
-version = "11.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c9029f079d1e374e7a895b9b3b4113247f68953cf5342f5bfd4ec82d94e7c03"
-dependencies = [
- "bytemuck",
- "num_enum",
- "solana-account-info",
- "solana-address 2.9.0",
- "solana-clock 3.2.1",
- "solana-cpi",
- "solana-instruction 3.5.1",
- "solana-msg",
- "solana-nullable",
- "solana-program-entrypoint",
- "solana-program-error",
- "solana-program-memory",
- "solana-program-option",
- "solana-program-pack",
- "solana-rent 3.1.0",
- "solana-sdk-ids",
- "solana-security-txt",
- "solana-system-interface 3.3.0",
- "solana-sysvar 3.1.1",
- "solana-zero-copy",
- "solana-zk-elgamal-proof-interface 0.1.3",
- "solana-zk-sdk-pod",
- "spl-elgamal-registry-interface 0.2.1",
- "spl-memo-interface",
- "spl-token-2022-interface 3.1.2",
- "spl-token-confidential-transfer-ciphertext-arithmetic",
- "spl-token-confidential-transfer-proof-extraction 0.6.1",
- "spl-token-group-interface",
- "spl-token-metadata-interface 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "spl-transfer-hook-interface",
-]
-
-[[package]]
-name = "spl-token-2022"
 version = "12.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d81aecc93603e0f4366eee5d67b0779677e03e25401d2b418ad5c49039222e70"
@@ -8405,7 +8351,7 @@ dependencies = [
  "solana-zero-copy",
  "solana-zk-elgamal-proof-interface 1.0.0",
  "solana-zk-sdk-pod",
- "spl-elgamal-registry-interface 0.3.0",
+ "spl-elgamal-registry-interface",
  "spl-memo-interface",
  "spl-token-2022-interface 4.0.0",
  "spl-token-confidential-transfer-ciphertext-arithmetic",
@@ -8513,7 +8459,7 @@ dependencies = [
  "spl-elgamal-registry",
  "spl-memo-interface",
  "spl-record",
- "spl-token-2022 12.0.0",
+ "spl-token-2022",
  "spl-token-2022-interface 4.0.0",
  "spl-token-confidential-transfer-proof-extraction 0.7.0",
  "spl-token-confidential-transfer-proof-generation",
@@ -8638,7 +8584,7 @@ dependencies = [
  "solana-program-test",
  "solana-sdk",
  "solana-system-interface 3.3.0",
- "spl-token-2022 11.1.0",
+ "spl-token-2022",
  "spl-token-client",
  "spl-token-metadata-interface 1.0.1",
  "spl-type-length-value",
