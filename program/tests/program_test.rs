@@ -1,5 +1,5 @@
 use {
-    solana_program_test::{processor, tokio::sync::Mutex, ProgramTest, ProgramTestContext},
+    solana_program_test::{tokio::sync::Mutex, ProgramTest, ProgramTestContext},
     solana_sdk::{
         pubkey::Pubkey, signature::Signer, signer::keypair::Keypair, transaction::Transaction,
     },
@@ -32,12 +32,10 @@ pub async fn setup(
 ) {
     let mut program_test = ProgramTest::new("spl_token_metadata_example", *program_id, None);
 
-    program_test.prefer_bpf(false); // simplicity in the build
-    program_test.add_program(
-        "spl_token_2022",
-        spl_token_2022::id(),
-        processor!(spl_token_2022::processor::Processor::process),
-    );
+    // Token-2022 v12 cannot run as a native builtin, so always load it from
+    // the BPF fixture at tests/fixtures/spl_token_2022.so
+    program_test.prefer_bpf(true);
+    program_test.add_program("spl_token_2022", spl_token_2022::id(), None);
 
     let context = program_test.start_with_context().await;
     let payer = Arc::new(keypair_clone(&context.payer));
