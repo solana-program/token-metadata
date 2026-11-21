@@ -11,7 +11,7 @@ use {
         program_option::COption,
         pubkey::Pubkey,
     },
-    spl_token_2022::{extension::StateWithExtensions, state::Mint},
+    spl_token_2022_interface::{extension::StateWithExtensions, state::Mint},
     spl_token_metadata_interface::{
         error::TokenMetadataError,
         instruction::{
