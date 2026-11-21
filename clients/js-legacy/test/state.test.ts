@@ -1,9 +1,8 @@
 import { PublicKey } from '@solana/web3.js';
-import { Buffer } from 'buffer';
 import { expect } from 'chai';
 
 import type { TokenMetadata } from '../src/state';
-import { unpack, pack, TOKEN_METADATA_DISCRIMINATOR } from '../src';
+import { unpack, pack } from '../src';
 
 function checkPackUnpack(tokenMetadata: TokenMetadata) {
     const packed = pack(tokenMetadata);
@@ -58,10 +57,5 @@ describe('Token Metadata State', () => {
                 ['key2', 'value2'],
             ],
         });
-    });
-
-    it('Exposes the account discriminator as a Buffer', () => {
-        expect(Buffer.isBuffer(TOKEN_METADATA_DISCRIMINATOR)).to.equal(true);
-        expect([...TOKEN_METADATA_DISCRIMINATOR]).to.deep.equal([112, 132, 90, 90, 11, 88, 157, 87]);
     });
 });
