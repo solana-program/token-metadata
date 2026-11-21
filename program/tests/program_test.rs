@@ -1,5 +1,5 @@
 use {
-    solana_program_test::{processor, tokio::sync::Mutex, ProgramTest, ProgramTestContext},
+    solana_program_test::{tokio::sync::Mutex, ProgramTest, ProgramTestContext},
     solana_sdk::{
         pubkey::Pubkey, signature::Signer, signer::keypair::Keypair, transaction::Transaction,
     },
@@ -30,14 +30,7 @@ pub async fn setup(
     Arc<dyn ProgramClient<ProgramBanksClientProcessTransaction>>,
     Arc<Keypair>,
 ) {
-    let mut program_test = ProgramTest::new("spl_token_metadata_example", *program_id, None);
-
-    program_test.prefer_bpf(false); // simplicity in the build
-    program_test.add_program(
-        "spl_token_2022",
-        spl_token_2022::id(),
-        processor!(spl_token_2022::processor::Processor::process),
-    );
+    let program_test = ProgramTest::new("spl_token_metadata_example", *program_id, None);
 
     let context = program_test.start_with_context().await;
     let payer = Arc::new(keypair_clone(&context.payer));

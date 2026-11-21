@@ -23,7 +23,7 @@ async fn success_update() {
     let mint_authority = Keypair::new();
     let mint_authority_pubkey = mint_authority.pubkey();
 
-    let token_program_id = spl_token_2022::id();
+    let token_program_id = spl_token_2022_interface::id();
     let decimals = 2;
     let token = setup_mint(
         &token_program_id,
@@ -169,7 +169,7 @@ async fn fail_authority_checks() {
     let mint_authority = Keypair::new();
     let mint_authority_pubkey = mint_authority.pubkey();
 
-    let token_program_id = spl_token_2022::id();
+    let token_program_id = spl_token_2022_interface::id();
     let decimals = 2;
     let token = setup_mint(
         &token_program_id,
