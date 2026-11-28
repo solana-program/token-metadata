@@ -14,7 +14,10 @@ users can call to get metadata.
 
 ### Example program
 
-Coming soon!
+An example program demonstrating how to implement the SPL Token-Metadata
+Interface can be found in the
+[program](https://github.com/solana-program/token-metadata/tree/main/program)
+directory alongside this interface's directory.
 
 ### Motivation
 
@@ -104,4 +107,4 @@ interface in their program can freely add any other data fields in a different
 TLV entry.
 
 You can find more information about TLV / type-length-value structures at the
-[spl-type-length-value repo](https://github.com/solana-labs/solana-program-library/tree/master/libraries/type-length-value).
+[spl-type-length-value repo](https://github.com/solana-program/libraries/tree/main/type-length-value).
